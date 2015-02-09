@@ -8,13 +8,17 @@ galaxy_info:
   min_ansible_version: 1.7
   platforms:
     - name: EL
-      versions: all
+      versions:
+        - all
     - name: Fedora
-      versions: all
+      versions:
+        - all
     - name: Ubuntu
-      versions: all
+      versions:
+        - all
     - name: Debian
-      versions: all
+      versions:
+        - all
   categories:
     - system
 
