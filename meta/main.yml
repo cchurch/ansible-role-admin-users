@@ -1,0 +1,21 @@
+---
+
+galaxy_info:
+  author: Chris Church
+  description: 
+  company: 'Nine More Minutes, Inc.'
+  license: BSD
+  min_ansible_version: 1.7
+  platforms:
+    - name: EL
+      versions: all
+    - name: Fedora
+      versions: all
+    - name: Ubuntu
+      versions: all
+    - name: Debian
+      versions: all
+  categories:
+    - system
+
+dependencies: []

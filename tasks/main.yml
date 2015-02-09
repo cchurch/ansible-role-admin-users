@@ -1,0 +1,39 @@
+---
+
+- name: include os specific variables
+  include_vars: '{{ ansible_os_family }}.yml'
+
+- name: create admin users
+  user:
+    name: '{{item.username}}'
+    comment: '{{item.fullname}}'
+    groups: '{{admin_users_sudo_group}}'
+    append: yes
+  with_items: admin_users
+
+- name: remove admin users
+  user:
+    name: '{{item}}'
+    state: absent
+  with_items: admin_users_to_remove
+
+- name: update authorized keys for admin users
+  authorized_key:
+    user: '{{item.username}}'
+    key: '{{item.pubkey}}'
+  with_items: admin_users
+
+- name: 'enable sudo with no password for {{admin_users_sudo_group}} group'
+  template:
+    src: sudo_nopasswd
+    dest: /etc/sudoers.d/sudo_nopasswd
+    mode: 0440
+    owner: root
+    group: root
+  when: admin_users_sudo_nopasswd
+
+- name: disable sudo with no password
+  file:
+    path: /etc/sudoers.d/sudo_nopasswd
+    state: absent
+  when: not admin_users_sudo_password

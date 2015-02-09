@@ -1,0 +1,12 @@
+---
+
+admin_users: []
+# - username: joe
+#   fullname: "Joe User"
+#   pubkey: "ssh-rsa ..."
+
+admin_users_sudo_nopasswd: yes
+
+admin_users_to_remove: []
+# - bob
+# - fred
