@@ -22,7 +22,7 @@ and remove admin users:
         fullname: "Jim User"
         pubkey: "ssh-rsa ..."
 
-    admin_users_sudo_nopasswd: yes
+    admin_users_sudo_nopasswd: true
 
     admin_users_to_remove:
       - bob
@@ -47,7 +47,7 @@ different options:
        roles:
          - role: cchurch.admin-users
            admin_users: prod_admin_users
-           admin_users_sudo_nopasswd: no
+           admin_users_sudo_nopasswd: false
 
 License
 -------

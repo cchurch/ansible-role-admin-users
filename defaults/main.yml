@@ -5,7 +5,7 @@ admin_users: []
 #   fullname: "Joe User"
 #   pubkey: "ssh-rsa ..."
 
-admin_users_sudo_nopasswd: yes
+admin_users_sudo_nopasswd: true
 
 admin_users_to_remove: []
 # - bob

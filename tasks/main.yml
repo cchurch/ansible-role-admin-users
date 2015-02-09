@@ -30,10 +30,10 @@
     mode: 0440
     owner: root
     group: root
-  when: admin_users_sudo_nopasswd
+  when: admin_users_sudo_nopasswd|bool
 
 - name: disable sudo with no password
   file:
     path: /etc/sudoers.d/sudo_nopasswd
     state: absent
-  when: not admin_users_sudo_password
+  when: not admin_users_sudo_nopasswd|bool
