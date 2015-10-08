@@ -3,10 +3,17 @@
 - name: include os specific variables
   include_vars: '{{ ansible_os_family }}.yml'
 
+- name: create admin user groups
+  group:
+    name: '{{ item.username }}'
+    state: present
+  with_items: admin_users
+
 - name: create admin users
   user:
     name: '{{item.username}}'
     comment: '{{item.fullname}}'
+    group: '{{item.username}}'
     groups: '{{admin_users_sudo_group}}'
     append: yes
   with_items: admin_users
@@ -14,6 +21,12 @@
 - name: remove admin users
   user:
     name: '{{item}}'
+    state: absent
+  with_items: admin_users_to_remove
+
+- name: remove admin user groups
+  group:
+    name: '{{ item.username }}'
     state: absent
   with_items: admin_users_to_remove
 
