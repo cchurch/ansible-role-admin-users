@@ -5,9 +5,10 @@
 
 - name: create admin users
   user:
-    name: '{{item.username}}'
-    comment: '{{item.fullname}}'
+    name: '{{item.username|mandatory}}'
+    comment: '{{item.fullname|default(omit)}}'
     groups: '{{admin_users_sudo_group}}'
+    shell: '{{item.shell|default(admin_users_default_shell)}}'
     append: yes
   with_items: admin_users
 

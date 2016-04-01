@@ -21,12 +21,18 @@ and remove admin users:
       - username: jim
         fullname: "Jim User"
         pubkey: "ssh-rsa ..."
+        shell: "/bin/sh"
 
     admin_users_sudo_nopasswd: true
+
+    admin_users_default_shell: "/bin/bash"
 
     admin_users_to_remove:
       - bob
       - fred
+
+You can specify a default shell for all users, or specify a different shell for
+each user.
 
 Dependencies
 ------------
