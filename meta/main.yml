@@ -2,10 +2,10 @@
 
 galaxy_info:
   author: Chris Church
-  description: 
+  description: 'Manage admin users, authorized keys and sudo access.'
   company: 'Nine More Minutes, Inc.'
   license: BSD
-  min_ansible_version: 1.7
+  min_ansible_version: 1.9
   platforms:
     - name: EL
       versions:
