@@ -10,19 +10,19 @@
     groups: '{{admin_users_sudo_group}}'
     shell: '{{item.shell|default(admin_users_default_shell)}}'
     append: yes
-  with_items: admin_users
+  with_items: '{{admin_users}}'
 
 - name: remove admin users
   user:
     name: '{{item}}'
     state: absent
-  with_items: admin_users_to_remove
+  with_items: '{{admin_users_to_remove}}'
 
 - name: update authorized keys for admin users
   authorized_key:
     user: '{{item.username}}'
     key: '{{item.pubkey}}'
-  with_items: admin_users
+  with_items: '{{admin_users}}'
 
 - name: 'enable sudo with no password for {{admin_users_sudo_group}} group'
   template:
