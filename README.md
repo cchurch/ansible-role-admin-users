@@ -1,3 +1,6 @@
+[![Build Status](http://img.shields.io/travis/cchurch/ansible-role-admin-users.svg)](https://travis-ci.org/cchurch/ansible-role-admin-users)
+[![Galaxy](http://img.shields.io/badge/galaxy-cchurch.admin-users-blue.svg)](https://galaxy.ansible.com/cchurch/admin-users/)
+
 Admin Users
 ===========
 
