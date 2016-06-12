@@ -1,28 +1,37 @@
 ---
 
 - name: include os specific variables
-  include_vars: '{{ ansible_os_family }}.yml'
+  include_vars: '{{ansible_os_family}}.yml'
+
+- name: ensure sudo package is installed
+  action:
+    module: '{{ansible_pkg_mgr}}'
+    name: '{{admin_users_sudo_package}}'
+    state: present
+  when: admin_users_sudo_package is defined
 
 - name: create admin users
   user:
     name: '{{item.username|mandatory}}'
     comment: '{{item.fullname|default(omit)}}'
     groups: '{{admin_users_sudo_group}}'
-    shell: '{{item.shell|default(admin_users_default_shell)}}'
     append: yes
-  with_items: admin_users
+    shell: '{{item.shell|default(admin_users_default_shell)}}'
+  with_items: '{{admin_users}}'
 
 - name: remove admin users
   user:
     name: '{{item}}'
     state: absent
-  with_items: admin_users_to_remove
+  with_items: '{{admin_users_to_remove}}'
 
 - name: update authorized keys for admin users
   authorized_key:
     user: '{{item.username}}'
     key: '{{item.pubkey}}'
-  with_items: admin_users
+    key_options: '{{item.pubkey_options|default(omit)}}'
+    exclusive: '{{item.exclusive|default(omit)}}'
+  with_items: '{{admin_users}}'
 
 - name: 'enable sudo with no password for {{admin_users_sudo_group}} group'
   template:

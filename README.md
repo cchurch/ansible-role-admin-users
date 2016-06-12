@@ -20,7 +20,8 @@ and remove admin users:
         pubkey: "ssh-rsa ..."
       - username: jim
         fullname: "Jim User"
-        pubkey: "ssh-rsa ..."
+        pubkey: "https://github.com/jim.keys"
+        exclusive: true
         shell: "/bin/sh"
 
     admin_users_sudo_nopasswd: true

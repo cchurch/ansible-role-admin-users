@@ -1,0 +1,99 @@
+---
+
+# On OSX, may need to run the following so docker containers are reachable:
+# sudo /sbin/route -n add -net 172.17.0.0 -netmask 255.255.0.0 -gateway $(docker-machine ip virtualbox)
+
+- name: setup docker containers
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: chrismeyersfsu.provision_docker
+      provision_docker_inventory: '{{docker_inventory}}'
+
+- name: test role with defaults
+  hosts: docker_containers
+  pre_tasks:
+    - name: check that sudo_nopasswd does not exist before role
+      stat:
+        path: /etc/sudoers.d/sudo_nopasswd
+      register: sudo_nopasswd_stat
+      failed_when: sudo_nopasswd_stat.stat.exists
+  roles:
+    - role: cchurch.admin-users
+  post_tasks:
+    - name: check that sudo_nopasswd exists after role
+      stat:
+        path: /etc/sudoers.d/sudo_nopasswd
+      register: sudo_nopasswd_stat
+      failed_when: not sudo_nopasswd_stat.stat.exists
+
+- name: test role with basic options
+  hosts: docker_containers
+  pre_tasks:
+    - name: check that admin authorized keys does not exist before role
+      stat:
+        path: /home/admin/.ssh/authorized_keys
+      register: stat_admin_authorized_keys
+      failed_when: stat_admin_authorized_keys.stat.exists
+    - name: check that cchurch authorized keys does not exist before role
+      stat:
+        path: /home/cchurch/.ssh/authorized_keys
+      register: stat_cchurch_authorized_keys
+      failed_when: stat_cchurch_authorized_keys.stat.exists
+  roles:
+    - role: cchurch.admin-users
+      admin_users:
+        - username: admin
+          fullname: The Admin
+          pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test'
+        - username: cchurch
+          fullname: Chris Church
+          pubkey: https://github.com/cchurch.keys
+  post_tasks:
+    - name: check that admin authorized keys exists after role
+      stat:
+        path: /home/admin/.ssh/authorized_keys
+      register: stat_admin_authorized_keys
+      failed_when: not stat_admin_authorized_keys.stat.exists
+    - name: check that cchurch authorized keys exists after role
+      stat:
+        path: /home/cchurch/.ssh/authorized_keys
+      register: stat_cchurch_authorized_keys
+      failed_when: not stat_cchurch_authorized_keys.stat.exists
+
+- name: try to connect with admin user and key
+  hosts: docker_containers
+  tasks:
+    - name: set new ssh user and specify private key
+      set_fact:
+        previous_ssh_user: '{{ansible_ssh_user|default(root)}}'
+        ansible_ssh_user: admin
+        ansible_ssh_private_key_file: '{{playbook_dir}}/admin.key'
+    - name: ping it
+      action: ping
+    - name: restore previous user
+      set_fact:
+        ansible_ssh_user: '{{previous_ssh_user}}'
+
+- name: test role with other options
+  hosts: docker_containers
+  roles:
+    - role: cchurch.admin-users
+      admin_users_to_remove:
+        - cchurch
+      admin_users_sudo_nopasswd: false
+  post_tasks:
+    - name: check that sudo_nopasswd does not exist after role
+      stat:
+        path: /etc/sudoers.d/sudo_nopasswd
+      register: sudo_nopasswd_stat
+      failed_when: sudo_nopasswd_stat.stat.exists
+    - name: check that cchurch user has been removed
+      user:
+        name: cchurch
+        state: absent
+      register: cchurch_user
+      failed_when: cchurch_user|changed
+
+- name: cleanup docker containers
+  include: cleanup.yml

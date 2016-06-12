@@ -5,8 +5,10 @@ admin_users_default_shell: "/bin/bash"
 admin_users: []
 # - username: joe
 #   fullname: "Joe User"
-#   pubkey: "ssh-rsa ..."
 #   shell: "/bin/bash"
+#   pubkey: "ssh-rsa ..."
+#   pubkey_options: ""
+#   exclusive: no
 
 admin_users_sudo_nopasswd: true
 

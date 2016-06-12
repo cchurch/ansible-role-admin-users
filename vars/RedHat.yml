@@ -1,3 +1,4 @@
 ---
 
 admin_users_sudo_group: wheel
+admin_users_sudo_package: sudo
