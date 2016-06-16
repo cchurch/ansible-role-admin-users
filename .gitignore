@@ -1,3 +1,2 @@
 *.retry
-tests/roles/chrismeyersfsu.*
 .tox

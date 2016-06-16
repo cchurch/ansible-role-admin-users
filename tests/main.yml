@@ -4,11 +4,7 @@
 # sudo /sbin/route -n add -net 172.17.0.0 -netmask 255.255.0.0 -gateway $(docker-machine ip virtualbox)
 
 - name: setup docker containers
-  hosts: localhost
-  gather_facts: false
-  roles:
-    - role: chrismeyersfsu.provision_docker
-      provision_docker_inventory: '{{docker_inventory}}'
+  include: setup.yml
 
 - name: test role with defaults
   hosts: docker_containers

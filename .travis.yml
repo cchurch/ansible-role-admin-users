@@ -24,7 +24,6 @@ install:
   - pip install $ANSIBLE_VERSION_SPEC
   - pip install docker-py
   - ansible --version
-  - ansible-galaxy install -r tests/requirements.yml -p tests/roles/
 
 script:
   - ansible-playbook -i tests/inventory tests/main.yml --syntax-check

@@ -53,11 +53,11 @@ different options:
       roles:
         - role: cchurch.admin-users
           admin_users: dev_admin_users
-     - hosts: prod-servers
-       roles:
-         - role: cchurch.admin-users
-           admin_users: prod_admin_users
-           admin_users_sudo_nopasswd: false
+    - hosts: prod-servers
+      roles:
+        - role: cchurch.admin-users
+          admin_users: prod_admin_users
+          admin_users_sudo_nopasswd: false
 
 License
 -------
