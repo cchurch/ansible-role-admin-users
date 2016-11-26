@@ -9,7 +9,7 @@ update-pip-requirements: core-requirements
 	pip-compile -U requirements.in
 
 requirements: core-requirements
-	pip sync requirements.txt
+	pip-sync requirements.txt
 
 syntax-check: requirements
 	ansible-playbook -i tests/inventory tests/main.yml --syntax-check
