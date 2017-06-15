@@ -1,1 +1,8 @@
+[local]
 localhost
+
+[containers]
+admin_users_centos6 image="chrismeyers/centos6"
+admin_users_centos7 image="chrismeyers/centos7"
+admin_users_ubuntu12 image="chrismeyers/ubuntu12.04"
+admin_users_ubuntu14 image="ubuntu-upstart:14.04"

@@ -11,10 +11,9 @@ env:
   global:
     - ANSIBLE_HOST_KEY_CHECKING=0
   matrix:
-    - ANSIBLE_VERSION_SPEC="ansible>=1.9,<2.0"
-    - ANSIBLE_VERSION_SPEC="ansible>=2.0,<2.1"
     - ANSIBLE_VERSION_SPEC="ansible>=2.1,<2.2"
     - ANSIBLE_VERSION_SPEC="ansible>=2.2,<2.3"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.3,<2.4"
 
 before_install:
   - sudo apt-get update -qq
@@ -24,6 +23,7 @@ install:
   - sudo apt-get install -y sshpass software-properties-common
   - pip install $ANSIBLE_VERSION_SPEC
   - pip install docker-py
+  - ansible-galaxy install -f -p tests/roles chrismeyersfsu.provision_docker
   - ansible --version
 
 script:
