@@ -7,18 +7,29 @@ galaxy_info:
   license: BSD
   min_ansible_version: 2.0
   platforms:
-    - name: EL
+    - name: Amazon
       versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
-    - name: Ubuntu
+        - '2016.09'
+    - name: ArchLinux
       versions:
         - all
     - name: Debian
       versions:
-        - all
+        - wheezy
+        - jessie
+        - stretch
+    - name: EL
+      versions:
+        - '6'
+        - '7'
+    #- name: Fedora
+    #  versions:
+    #    - '25'
+    #    - '26'
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
   categories:
     - system
 

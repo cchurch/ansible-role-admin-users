@@ -2,7 +2,44 @@
 localhost
 
 [containers]
-admin_users_centos6 image="chrismeyers/centos6"
-admin_users_centos7 image="chrismeyers/centos7"
-admin_users_ubuntu12 image="chrismeyers/ubuntu12.04"
-admin_users_ubuntu14 image="ubuntu-upstart:14.04"
+admin_users_amazon image="amazonlinux:2016.09"
+admin_users_arch image="base/archlinux"
+admin_users_centos6 image="centos:6"
+admin_users_centos7 image="centos:7"
+admin_users_debian7 image="debian:wheezy"
+admin_users_debian8 image="debian:jessie"
+admin_users_debian9 image="debian:stretch"
+#admin_users_fedora25 image="fedora:25"
+#admin_users_fedora26 image="fedora:26"
+admin_users_ubuntu14 image="ubuntu:trusty"
+admin_users_ubuntu16 image="ubuntu:xenial"
+
+[containers:vars]
+ansible_connection=docker
+ansible_user=root
+
+[amazon]
+admin_users_amazon
+
+[arch]
+admin_users_arch
+
+[arch:vars]
+ansible_python_interpreter=/usr/bin/python2
+
+[centos]
+admin_users_centos6
+admin_users_centos7
+
+[debian]
+admin_users_debian7
+admin_users_debian8
+admin_users_debian9
+
+#[fedora]
+#admin_users_fedora25
+#admin_users_fedora26
+
+[ubuntu]
+admin_users_ubuntu14
+admin_users_ubuntu16

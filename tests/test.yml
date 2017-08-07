@@ -40,11 +40,10 @@
 - name: test role with defaults
   hosts: containers
   pre_tasks:
-    - name: check that sudo_nopasswd does not exist before role
-      stat:
+    - name: remove sudo_nopasswd file before running role
+      file:
         path: /etc/sudoers.d/sudo_nopasswd
-      register: sudo_nopasswd_stat
-      failed_when: sudo_nopasswd_stat.stat.exists
+        state: absent
   roles:
     - role: cchurch.admin-users
   post_tasks:
@@ -57,16 +56,13 @@
 - name: test role with basic options
   hosts: containers
   pre_tasks:
-    - name: check that admin authorized keys does not exist before role
-      stat:
+    - name: remove authorized keys files before running role
+      file:
         path: /home/admin/.ssh/authorized_keys
-      register: stat_admin_authorized_keys
-      failed_when: stat_admin_authorized_keys.stat.exists
-    - name: check that cchurch authorized keys does not exist before role
-      stat:
-        path: /home/cchurch/.ssh/authorized_keys
-      register: stat_cchurch_authorized_keys
-      failed_when: stat_cchurch_authorized_keys.stat.exists
+        state: absent
+      with_items:
+        - /home/admin/.ssh/authorized_keys
+        - /home/cchurch/.ssh/authorized_keys
   roles:
     - role: cchurch.admin-users
       admin_users:
@@ -93,14 +89,18 @@
   tasks:
     - name: set new ssh user and specify private key
       set_fact:
-        previous_ssh_user: '{{ansible_ssh_user|default(root)}}'
-        ansible_ssh_user: admin
+        previous_user: '{{ansible_user|default(root)}}'
+        ansible_user: admin
         ansible_ssh_private_key_file: '{{playbook_dir}}/admin.key'
-    - name: ping it
-      action: ping
+    # Doesn't *really* check since we're using docker connection instead of ssh.
+    - name: check that current user is really the new ssh user
+      command: whoami
+      register: whoami_result
+      changed_when: false
+      failed_when: whoami_result.stdout != "admin"
     - name: restore previous user
       set_fact:
-        ansible_ssh_user: '{{previous_ssh_user}}'
+        ansible_user: '{{previous_user}}'
 
 - name: test role with other options
   hosts: containers
