@@ -30,7 +30,7 @@ galaxy_info:
       versions:
         - trusty
         - xenial
-  categories:
+  galaxy_tags:
     - system
-
+allow_duplicates: true
 dependencies: []
