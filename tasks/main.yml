@@ -10,6 +10,12 @@
     state: present
   when: admin_users_sudo_package is defined
 
+- name: create admin group
+  group:
+    name: '{{admin_users_sudo_group}}'
+    system: true
+    state: present
+
 - name: create admin user groups
   group:
     name: '{{item.username}}'
