@@ -41,7 +41,7 @@
 
 - name: remove admin user groups
   group:
-    name: '{{item.username}}'
+    name: '{{item}}'
     state: absent
   with_items: '{{admin_users_to_remove}}'
   when: admin_user_groups
