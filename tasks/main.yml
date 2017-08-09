@@ -10,10 +10,17 @@
     state: present
   when: admin_users_sudo_package is defined
 
+- name: create admin user groups
+  group:
+    name: '{{ item.username }}'
+    state: present
+  with_items: admin_users
+
 - name: create admin users
   user:
     name: '{{item.username|mandatory}}'
     comment: '{{item.fullname|default(omit)}}'
+    group: '{{item.username}}'
     groups: '{{admin_users_sudo_group}}'
     append: yes
     shell: '{{item.shell|default(admin_users_default_shell)}}'
@@ -24,6 +31,12 @@
     name: '{{item}}'
     state: absent
   with_items: '{{admin_users_to_remove}}'
+
+- name: remove admin user groups
+  group:
+    name: '{{ item.username }}'
+    state: absent
+  with_items: admin_users_to_remove
 
 - name: update authorized keys for admin users
   authorized_key:
