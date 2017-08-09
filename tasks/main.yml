@@ -12,15 +12,16 @@
 
 - name: create admin user groups
   group:
-    name: '{{ item.username }}'
+    name: '{{item.username}}'
     state: present
-  with_items: admin_users
+  with_items: '{{admin_users}}'
+  when: admin_user_groups
 
 - name: create admin users
   user:
     name: '{{item.username|mandatory}}'
     comment: '{{item.fullname|default(omit)}}'
-    group: '{{item.username}}'
+    group: '{{admin_user_groups|ternary(item.username,omit)}}'
     groups: '{{admin_users_sudo_group}}'
     append: yes
     shell: '{{item.shell|default(admin_users_default_shell)}}'
@@ -34,9 +35,10 @@
 
 - name: remove admin user groups
   group:
-    name: '{{ item.username }}'
+    name: '{{item.username}}'
     state: absent
-  with_items: admin_users_to_remove
+  with_items: '{{admin_users_to_remove}}'
+  when: admin_user_groups
 
 - name: update authorized keys for admin users
   authorized_key:

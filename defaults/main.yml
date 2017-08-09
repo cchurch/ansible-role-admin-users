@@ -10,6 +10,8 @@ admin_users: []
 #   pubkey_options: ""
 #   exclusive: no
 
+admin_user_groups: true
+
 admin_users_sudo_nopasswd: true
 
 admin_users_to_remove: []

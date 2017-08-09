@@ -27,6 +27,8 @@ and remove admin users:
         exclusive: true
         shell: "/bin/sh"
 
+    admin_user_groups: true
+
     admin_users_sudo_nopasswd: true
 
     admin_users_default_shell: "/bin/bash"
