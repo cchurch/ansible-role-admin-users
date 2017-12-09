@@ -11,10 +11,14 @@ env:
   global:
     - ANSIBLE_HOST_KEY_CHECKING=0
   matrix:
-    - ANSIBLE_VERSION_SPEC="ansible>=2.1,<2.2"
-    - ANSIBLE_VERSION_SPEC="ansible>=2.2,<2.3"
-    - ANSIBLE_VERSION_SPEC="ansible>=2.3,<2.4"
-    - ANSIBLE_VERSION_SPEC="ansible>=2.4,<2.5"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.1,<2.2" ANSIBLE_LIMIT="debian:ubuntu"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.1,<2.2" ANSIBLE_LIMIT="amazon:arch:centos"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.2,<2.3" ANSIBLE_LIMIT="debian:ubuntu"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.2,<2.3" ANSIBLE_LIMIT="amazon:arch:centos"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.3,<2.4" ANSIBLE_LIMIT="debian:ubuntu"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.3,<2.4" ANSIBLE_LIMIT="amazon:arch:centos"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.4,<2.5" ANSIBLE_LIMIT="debian:ubuntu"
+    - ANSIBLE_VERSION_SPEC="ansible>=2.4,<2.5" ANSIBLE_LIMIT="amazon:arch:centos"
 
 before_install:
   - sudo apt-get update -qq
@@ -29,4 +33,4 @@ install:
 
 script:
   - ansible-playbook -i tests/inventory tests/main.yml --syntax-check
-  - ansible-playbook -i tests/inventory tests/main.yml
+  - ansible-playbook -i tests/inventory -l $ANSIBLE_LIMIT tests/main.yml
