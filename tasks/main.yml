@@ -18,9 +18,9 @@
 
 - name: create admin user groups
   group:
-    name: '{{item.username}}'
+    name: '{{item.username|mandatory}}'
     state: present
-  with_items: '{{admin_users}}'
+  with_items: '{{admin_users|admin_users_unique(attribute="username")|list}}'
   when: admin_user_groups
 
 - name: create admin users
@@ -31,19 +31,19 @@
     groups: '{{admin_users_sudo_group}}'
     append: yes
     shell: '{{item.shell|default(admin_users_default_shell)}}'
-  with_items: '{{admin_users}}'
+  with_items: '{{admin_users|admin_users_unique(attribute="username")|list}}'
 
 - name: remove admin users
   user:
     name: '{{item}}'
     state: absent
-  with_items: '{{admin_users_to_remove}}'
+  with_items: '{{admin_users_to_remove|admin_users_unique|list}}'
 
 - name: remove admin user groups
   group:
     name: '{{item}}'
     state: absent
-  with_items: '{{admin_users_to_remove}}'
+  with_items: '{{admin_users_to_remove|admin_users_unique|list}}'
   when: admin_user_groups
 
 - name: update authorized keys for admin users
@@ -52,7 +52,18 @@
     key: '{{item.pubkey}}'
     key_options: '{{item.pubkey_options|default(omit)}}'
     exclusive: '{{item.exclusive|default(omit)}}'
-  with_items: '{{admin_users}}'
+  with_items: '{{admin_users|selectattr("pubkey", "string")|list}}'
+
+- name: update multiple authorized keys for admin users
+  authorized_key:
+    user: '{{item.0.username}}'
+    key: '{{item.1}}'
+    key_options: '{{item.0.pubkey_options|default(omit)}}'
+    exclusive: '{{item.0.exclusive|default(omit)}}'
+  with_subelements:
+    - '{{admin_users|rejectattr("pubkey", "string")|list}}'
+    - 'pubkey'
+    - skip_missing: true
 
 - name: 'enable sudo with no password for {{admin_users_sudo_group}} group'
   template:

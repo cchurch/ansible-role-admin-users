@@ -6,7 +6,7 @@ admin_users: []
 # - username: joe
 #   fullname: "Joe User"
 #   shell: "/bin/bash"
-#   pubkey: "ssh-rsa ..."
+#   pubkey: "ssh-rsa ..." or ["ssh-rsa ...", "ssh-rsa ..."]
 #   pubkey_options: ""
 #   exclusive: no
 

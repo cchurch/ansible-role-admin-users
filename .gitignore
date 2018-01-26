@@ -1,3 +1,5 @@
+*.pyc
+*.pyo
 *.retry
 .tox
 tests/admin.key

@@ -1,7 +1,7 @@
 ---
 
 - name: create local admin private key file
-  hosts: local
+  hosts: containers
   gather_facts: false
   tasks:
     - name: write private key to file
@@ -36,6 +36,8 @@
           -----END RSA PRIVATE KEY-----
         dest: '{{playbook_dir}}/admin.key'
         mode: 0600
+      delegate_to: localhost
+      run_once: true
 
 - name: test role with defaults
   hosts: containers
@@ -53,36 +55,39 @@
       register: sudo_nopasswd_stat
       failed_when: not sudo_nopasswd_stat.stat.exists
 
-- name: test role with basic options
+- name: test role with some admin users
   hosts: containers
+  vars:
+    authorized_key_paths:
+      - /home/admin/.ssh/authorized_keys
+      - /home/admin2/.ssh/authorized_keys
+      - /home/cchurch/.ssh/authorized_keys
   pre_tasks:
     - name: remove authorized keys files before running role
       file:
-        path: /home/admin/.ssh/authorized_keys
+        path: '{{item}}'
         state: absent
-      with_items:
-        - /home/admin/.ssh/authorized_keys
-        - /home/cchurch/.ssh/authorized_keys
+      with_items: '{{authorized_key_paths}}'
   roles:
     - role: cchurch.admin-users
       admin_users:
         - username: admin
           fullname: The Admin
           pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test'
+        - username: admin2
+          fullname: The Other Admin
+          pubkey:
+            - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test'
         - username: cchurch
           fullname: Chris Church
           pubkey: https://github.com/cchurch.keys
   post_tasks:
-    - name: check that admin authorized keys exists after role
+    - name: check that authorized keys exists after role
       stat:
-        path: /home/admin/.ssh/authorized_keys
-      register: stat_admin_authorized_keys
-      failed_when: not stat_admin_authorized_keys.stat.exists
-    - name: check that cchurch authorized keys exists after role
-      stat:
-        path: /home/cchurch/.ssh/authorized_keys
-      register: stat_cchurch_authorized_keys
-      failed_when: not stat_cchurch_authorized_keys.stat.exists
+        path: '{{item}}'
+      register: stat_authorized_keys
+      failed_when: not stat_authorized_keys.stat.exists
+      with_items: '{{authorized_key_paths}}'
 
 - name: try to connect with admin user and key
   hosts: containers
