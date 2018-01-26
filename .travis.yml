@@ -19,6 +19,8 @@ env:
     - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="local:debian:ubuntu"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="local:debian:ubuntu"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="local:amazon:arch:centos"
 
 before_install:
   - sudo apt-get update -qq
@@ -28,7 +30,7 @@ install:
   - sudo apt-get install -y sshpass software-properties-common
   - pip install $ANSIBLE_VERSION
   - pip install docker-py
-  - ansible-galaxy install -f -p tests/roles chrismeyersfsu.provision_docker
+  - ansible-galaxy install -f -p tests/roles -r tests/roles/requirements.yml
   - ansible --version
 
 script:
