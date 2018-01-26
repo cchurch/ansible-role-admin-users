@@ -1,10 +1,13 @@
 ---
 
 - name: launch docker containers
-  hosts: local
+  hosts: containers
   gather_facts: false
   roles:
     - role: chrismeyersfsu.provision_docker
+      provision_docker_inventory_group:
+        - '{{inventory_hostname}}'
+      delegate_to: localhost
 
 - name: check and install python on ubuntu/debian containers
   hosts: ubuntu:debian:&containers
