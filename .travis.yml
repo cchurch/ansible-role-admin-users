@@ -57,18 +57,6 @@ env:
     - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu14"
     - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu16"
 
-matrix:
-  allow_failures:
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="arch"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos6"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos7"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian7"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian8"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian9"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu14"
-    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu16"
-
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
