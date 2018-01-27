@@ -9,18 +9,65 @@ services:
   - docker
 env:
   global:
-    - ANSIBLE_HOST_KEY_CHECKING=0
+    - ANSIBLE_CONFIG=tests/ansible.cfg
   matrix:
-    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="local:debian:ubuntu"
-    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
-    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="local:debian:ubuntu"
-    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="local:debian:ubuntu"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
-    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="local:debian:ubuntu"
-    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="local:amazon:arch:centos"
-    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="local:debian:ubuntu"
-    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="local:amazon:arch:centos"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="debian7"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.1.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="debian7"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.2.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian7"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian7"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian7"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu16"
+
+matrix:
+  allow_failures:
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="arch"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos6"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos7"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian7"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian8"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="debian9"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu14"
+    - env: ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu16"
 
 before_install:
   - sudo apt-get update -qq
@@ -35,7 +82,7 @@ install:
 
 script:
   - ansible-playbook -i tests/inventory tests/main.yml --syntax-check
-  - ansible-playbook -i tests/inventory -l $ANSIBLE_LIMIT tests/main.yml
+  - ansible-playbook -i tests/inventory -l $ANSIBLE_LIMIT tests/main.yml -vv
 
 after_script:
   - ansible-playbook -i tests/inventory tests/cleanup.yml
@@ -47,5 +94,3 @@ notifications:
     on_success: always
     on_failure: never
     on_start: never
-    on_cancel: never
-    on_error: never

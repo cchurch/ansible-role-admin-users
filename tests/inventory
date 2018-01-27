@@ -31,19 +31,40 @@ admin_users_arch
 [arch:vars]
 ansible_python_interpreter=/usr/bin/python2
 
-[centos]
+[centos:children]
+centos6
+centos7
+
+[centos6]
 admin_users_centos6
+
+[centos7]
 admin_users_centos7
 
-[debian]
+[debian:children]
+debian7
+debian8
+debian9
+
+[debian7]
 admin_users_debian7
+
+[debian8]
 admin_users_debian8
+
+[debian9]
 admin_users_debian9
 
 #[fedora]
 #admin_users_fedora25
 #admin_users_fedora26
 
-[ubuntu]
+[ubuntu:children]
+ubuntu14
+ubuntu16
+
+[ubuntu14]
 admin_users_ubuntu14
+
+[ubuntu16]
 admin_users_ubuntu16
