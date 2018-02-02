@@ -17,23 +17,23 @@ galaxy-requirements: requirements
 
 .PHONY: syntax-check
 syntax-check: requirements galaxy-requirements
-	ansible-playbook -i tests/inventory tests/main.yml --syntax-check
+	ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/inventory tests/main.yml --syntax-check
 
 .PHONY: setup
 setup: requirements galaxy-requirements
-	ANSIBLE_HOST_KEY_CHECKING=0 ansible-playbook -i tests/inventory -vv tests/setup.yml
+	ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/inventory -vv tests/setup.yml
 
 .PHONY: test
 test: requirements galaxy-requirements
-	ANSIBLE_HOST_KEY_CHECKING=0 ansible-playbook -i tests/inventory -vv tests/main.yml
+	ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/inventory -vv tests/main.yml
 
 .PHONY: test-only
 test-only: requirements galaxy-requirements
-	ANSIBLE_HOST_KEY_CHECKING=0 ansible-playbook -i tests/inventory -vv tests/test.yml
+	ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/inventory -vv tests/test.yml
 
 .PHONY: cleanup
 cleanup: requirements galaxy-requirements
-	ANSIBLE_HOST_KEY_CHECKING=0 ansible-playbook -i tests/inventory -vv tests/cleanup.yml
+	ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/inventory -vv tests/cleanup.yml
 
 .PHONY: clean-tox
 clean-tox:
