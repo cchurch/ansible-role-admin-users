@@ -67,7 +67,7 @@
 
 - name: 'enable sudo with no password for {{admin_users_sudo_group}} group'
   template:
-    src: sudo_nopasswd
+    src: sudo_nopasswd.j2
     dest: /etc/sudoers.d/sudo_nopasswd
     mode: 0440
     owner: root

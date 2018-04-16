@@ -4,32 +4,32 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-ansible==2.4.2.0
+ansible==2.5.0
 asn1crypto==0.24.0        # via cryptography
 backports.ssl-match-hostname==3.5.0.1  # via docker-py
 bcrypt==3.1.4             # via paramiko
 bumpversion==0.5.3
 certifi==2018.1.18        # via requests
-cffi==1.11.4              # via bcrypt, cryptography, pynacl
+cffi==1.11.5              # via bcrypt, cryptography, pynacl
 chardet==3.0.4            # via requests
-cryptography==2.1.4       # via ansible, paramiko
+cryptography==2.2.2       # via ansible, paramiko
 docker-py==1.10.6
-docker-pycreds==0.2.1     # via docker-py
+docker-pycreds==0.2.2     # via docker-py
 enum34==1.1.6             # via cryptography
 idna==2.6                 # via cryptography, requests
-ipaddress==1.0.19         # via cryptography, docker-py
+ipaddress==1.0.22         # via cryptography, docker-py
 jinja2==2.10              # via ansible
 markupsafe==1.0           # via jinja2
-paramiko==2.4.0           # via ansible
+paramiko==2.4.1           # via ansible
 pluggy==0.6.0             # via tox
-py==1.5.2                 # via tox
+py==1.5.3                 # via tox
 pyasn1==0.4.2             # via paramiko
 pycparser==2.18           # via cffi
 pynacl==1.2.1             # via paramiko
 pyyaml==3.12              # via ansible
 requests==2.18.4          # via docker-py
 six==1.11.0               # via bcrypt, cryptography, docker-py, docker-pycreds, pynacl, tox, websocket-client
-tox==2.9.1
+tox==3.0.0
 urllib3==1.22             # via requests
-virtualenv==15.1.0        # via tox
-websocket-client==0.46.0  # via docker-py
+virtualenv==15.2.0        # via tox
+websocket-client==0.47.0  # via docker-py
