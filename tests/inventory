@@ -7,16 +7,18 @@ ansible_python_interpreter=/usr/bin/env python
 
 [containers]
 admin_users_amazon image="amazonlinux:latest"
-admin_users_arch image="base/archlinux"
+admin_users_arch image="archlinux/base"
 admin_users_centos6 image="centos:6"
 admin_users_centos7 image="centos:7"
-admin_users_debian7 image="debian:wheezy"
+#admin_users_debian7 image="debian:wheezy"
 admin_users_debian8 image="debian:jessie"
 admin_users_debian9 image="debian:stretch"
+admin_users_debian10 image="debian:buster"
 #admin_users_fedora25 image="fedora:25"
 #admin_users_fedora26 image="fedora:26"
 admin_users_ubuntu14 image="ubuntu:trusty"
 admin_users_ubuntu16 image="ubuntu:xenial"
+admin_users_ubuntu18 image="ubuntu:bionic"
 
 [containers:vars]
 ansible_connection=docker
@@ -29,7 +31,7 @@ admin_users_amazon
 admin_users_arch
 
 [arch:vars]
-ansible_python_interpreter=/usr/bin/python2
+ansible_python_interpreter=/usr/bin/python3
 
 [centos:children]
 centos6
@@ -42,18 +44,22 @@ admin_users_centos6
 admin_users_centos7
 
 [debian:children]
-debian7
+#debian7
 debian8
 debian9
+debian10
 
-[debian7]
-admin_users_debian7
+#[debian7]
+#admin_users_debian7
 
 [debian8]
 admin_users_debian8
 
 [debian9]
 admin_users_debian9
+
+[debian10]
+admin_users_debian10
 
 #[fedora]
 #admin_users_fedora25
@@ -62,9 +68,19 @@ admin_users_debian9
 [ubuntu:children]
 ubuntu14
 ubuntu16
+ubuntu18
 
 [ubuntu14]
 admin_users_ubuntu14
 
 [ubuntu16]
 admin_users_ubuntu16
+
+#[ubuntu16:vars]
+#ansible_python_interpreter=/usr/bin/python3
+
+[ubuntu18]
+admin_users_ubuntu18
+
+[ubuntu18:vars]
+ansible_python_interpreter=/usr/bin/python3

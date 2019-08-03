@@ -38,6 +38,7 @@
         mode: 0600
       delegate_to: localhost
       run_once: true
+      no_log: true
 
 - name: test role with defaults
   hosts: containers
@@ -125,4 +126,4 @@
         name: cchurch
         state: absent
       register: cchurch_user
-      failed_when: cchurch_user|changed
+      failed_when: cchurch_user is changed

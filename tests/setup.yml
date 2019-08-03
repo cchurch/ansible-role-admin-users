@@ -19,12 +19,12 @@
       apt:
         name: ca-certificates
 
-- name: check and install python2 on archlinux container
+- name: check and install python3 on archlinux container
   hosts: arch:&containers
   gather_facts: false
   tasks:
-    - name: check for and install python
-      raw: test -e /usr/bin/python2 || (/usr/bin/pacman --noconfirm -Sy archlinux-keyring && /usr/bin/pacman -S --noconfirm python2)
+    - name: check for and install python3
+      raw: test -e /usr/bin/python3 || (/usr/bin/pacman --noconfirm -Sy archlinux-keyring && /usr/bin/pacman -S --noconfirm python3)
 
 - name: install user/group utils on amazon container
   hosts: amazon:&containers

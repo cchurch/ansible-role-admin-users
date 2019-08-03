@@ -1,61 +1,66 @@
 ---
 
 sudo: required
-dist: trusty
+dist: bionic
 language: python
 python:
-  - "2.7"
+  - "3.7"
 services:
   - docker
 env:
   global:
     - ANSIBLE_CONFIG=tests/ansible.cfg
   matrix:
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="amazon"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="arch"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="centos6"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="centos7"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="debian7"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="debian8"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="debian9"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="ubuntu14"
-    - ANSIBLE_VERSION="ansible~=2.1.0 Jinja2<2.9" ANSIBLE_LIMIT="ubuntu16"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="amazon"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="arch"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="centos6"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="centos7"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="debian7"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="debian8"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="debian9"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="ubuntu14"
-    - ANSIBLE_VERSION="ansible~=2.2.0 Jinja2<2.10" ANSIBLE_LIMIT="ubuntu16"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="amazon"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="arch"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="centos6"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="centos7"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian7"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian8"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="debian9"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="ubuntu14"
-    - ANSIBLE_VERSION="ansible~=2.3.0" ANSIBLE_LIMIT="ubuntu16"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="amazon"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="arch"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="centos6"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="centos7"
-    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian7"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian8"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="debian10"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="ubuntu14"
     - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="ubuntu18"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="amazon"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="arch"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="centos6"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="centos7"
-    - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="debian7"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="debian8"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="debian10"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="ubuntu14"
     - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="ubuntu18"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="debian10"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="ubuntu18"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="debian10"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="ubuntu18"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="amazon"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="arch"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="centos6"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="centos7"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="debian8"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="debian9"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="debian10"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="ubuntu14"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="ubuntu16"
+    - ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="ubuntu18"
     - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"
     - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="arch"
     - ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="centos6"
@@ -73,7 +78,7 @@ before_install:
 install:
   - sudo apt-get install -y sshpass software-properties-common
   - pip install $ANSIBLE_VERSION
-  - pip install docker-py
+  - pip install docker
   - ansible-galaxy install -f -p tests/roles -r tests/roles/requirements.yml
   - ansible --version
 
