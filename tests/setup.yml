@@ -6,7 +6,7 @@
   roles:
     - role: chrismeyersfsu.provision_docker
       provision_docker_inventory_group:
-        - '{{inventory_hostname}}'
+        - '{{ inventory_hostname }}'
       delegate_to: localhost
 
 - name: check and install python on ubuntu/debian containers
@@ -15,6 +15,8 @@
   tasks:
     - name: check for and install python
       raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python-minimal)
+      register: _check_python_result
+      changed_when: _check_python_result.stdout
     - name: install ca certificates
       apt:
         name: ca-certificates
@@ -25,6 +27,8 @@
   tasks:
     - name: check for and install python3
       raw: test -e /usr/bin/python3 || (/usr/bin/pacman --noconfirm -Sy archlinux-keyring && /usr/bin/pacman -S --noconfirm python3)
+      register: _check_python_result
+      changed_when: _check_python_result.stdout
 
 - name: install user/group utils on amazon container
   hosts: amazon:&containers

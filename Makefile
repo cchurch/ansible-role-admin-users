@@ -43,6 +43,10 @@ clean-tox:
 tox: requirements galaxy-requirements
 	tox
 
+.PHONY: lint
+lint: requirements galaxy-requirements
+	ansible-lint tests/main.yml
+
 .PHONY: bump-major
 bump-major: requirements
 	bumpversion major
