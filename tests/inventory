@@ -82,5 +82,5 @@ admin_users_ubuntu16
 [ubuntu18]
 admin_users_ubuntu18
 
-[ubuntu18:vars]
-ansible_python_interpreter=/usr/bin/python3
+#[ubuntu18:vars]
+#ansible_python_interpreter=/usr/bin/python3
