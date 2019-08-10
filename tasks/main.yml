@@ -68,14 +68,14 @@
 - name: 'enable sudo with no password for {{ admin_users_sudo_group }} group'
   template:
     src: sudo_nopasswd.j2
-    dest: /etc/sudoers.d/sudo_nopasswd
+    dest: '{{ admin_users_sudoers_d_path|default("/etc/sudoers.d") }}/sudo_nopasswd'
     mode: 0440
     owner: root
-    group: root
+    group: '{{ admin_users_root_group|default("root") }}'
   when: admin_users_sudo_nopasswd|bool
 
 - name: disable sudo with no password
   file:
-    path: /etc/sudoers.d/sudo_nopasswd
+    path: '{{ admin_users_sudoers_d_path|default("/etc/sudoers.d") }}/sudo_nopasswd'
     state: absent
   when: not admin_users_sudo_nopasswd|bool

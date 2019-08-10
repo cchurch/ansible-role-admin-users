@@ -1,0 +1,6 @@
+---
+
+admin_users_sudo_group: admins
+admin_users_sudo_package: sudo
+admin_users_sudoers_d_path: /usr/local/etc/sudoers.d
+admin_users_root_group: wheel

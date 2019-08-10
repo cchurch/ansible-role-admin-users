@@ -27,6 +27,9 @@ galaxy_info:
     #  versions:
     #    - '25'
     #    - '26'
+    - name: FreeBSD
+      versions:
+        - all
     - name: Ubuntu
       versions:
         - trusty
