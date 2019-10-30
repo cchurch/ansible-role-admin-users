@@ -15,7 +15,6 @@ galaxy_info:
         - all
     - name: Debian
       versions:
-        #- wheezy
         - jessie
         - stretch
         - buster
@@ -23,10 +22,7 @@ galaxy_info:
       versions:
         - '6'
         - '7'
-    #- name: Fedora
-    #  versions:
-    #    - '25'
-    #    - '26'
+        - '8'
     - name: FreeBSD
       versions:
         - all
