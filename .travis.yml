@@ -122,6 +122,28 @@ matrix:
     - python: "3.7"
       env: 'ANSIBLE_VERSION="ansible~=2.8.0" ANSIBLE_LIMIT="ubuntu18"'
     - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="amazon"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="arch"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="centos6"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="centos7"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="centos8"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="debian8"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="debian9"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="debian10"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="ubuntu14"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="ubuntu16"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.9.0" ANSIBLE_LIMIT="ubuntu18"'
+    - python: "3.7"
       env: 'ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"'
     - python: "3.7"
       env: 'ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="arch"'
