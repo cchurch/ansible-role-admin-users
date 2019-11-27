@@ -7,7 +7,7 @@ ansible_python_interpreter=/usr/bin/env python
 
 [containers]
 admin_users_amazon image="amazonlinux:latest"
-admin_users_arch image="archlinux/base"
+admin_users_arch image="archlinux:latest"
 admin_users_centos6 image="centos:6"
 admin_users_centos7 image="centos:7"
 admin_users_centos8 image="centos:8"

@@ -166,6 +166,14 @@ matrix:
     - python: "3.7"
       env: 'ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="ubuntu18"'
   allow_failures:
+    - python: "2.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.4.0" ANSIBLE_LIMIT="arch"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.5.0" ANSIBLE_LIMIT="arch"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.6.0" ANSIBLE_LIMIT="arch"'
+    - python: "3.7"
+      env: 'ANSIBLE_VERSION="ansible~=2.7.0" ANSIBLE_LIMIT="arch"'
     - python: "3.7"
       env: 'ANSIBLE_VERSION="git+https://github.com/ansible/ansible.git@devel" ANSIBLE_LIMIT="amazon"'
     - python: "3.7"
