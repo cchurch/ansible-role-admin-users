@@ -11,10 +11,8 @@ admin_users_arch image="archlinux:latest"
 admin_users_centos6 image="centos:6"
 admin_users_centos7 image="centos:7"
 admin_users_centos8 image="centos:8"
-admin_users_debian8 image="debian:jessie"
 admin_users_debian9 image="debian:stretch"
 admin_users_debian10 image="debian:buster"
-admin_users_ubuntu14 image="ubuntu:trusty"
 admin_users_ubuntu16 image="ubuntu:xenial"
 admin_users_ubuntu18 image="ubuntu:bionic"
 
@@ -49,12 +47,8 @@ admin_users_centos8
 ansible_python_interpreter=/usr/libexec/platform-python
 
 [debian:children]
-debian8
 debian9
 debian10
-
-[debian8]
-admin_users_debian8
 
 [debian9]
 admin_users_debian9
@@ -63,12 +57,8 @@ admin_users_debian9
 admin_users_debian10
 
 [ubuntu:children]
-ubuntu14
 ubuntu16
 ubuntu18
-
-[ubuntu14]
-admin_users_ubuntu14
 
 [ubuntu16]
 admin_users_ubuntu16
