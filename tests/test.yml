@@ -34,7 +34,7 @@
           jQcVm7zKk4aiN0npU+ZEmFT0cA6Y0tShpocBq4kGKdjaGwKxeh91SbbZzkPS1r+A
           IcgB3JOqoXa/vw3EFU6S47EeyBUUfLZjSwg80e4r0WC0rJqHO5689cw=
           -----END RSA PRIVATE KEY-----
-        dest: '{{ playbook_dir }}/admin.key'
+        dest: "{{ playbook_dir }}/admin.key"
         mode: 0600
       delegate_to: localhost
       run_once: true
@@ -66,55 +66,57 @@
   pre_tasks:
     - name: remove authorized keys files before running role
       file:
-        path: '{{ item }}'
+        path: "{{ item }}"
         state: absent
-      with_items: '{{ authorized_key_paths }}'
+      with_items: "{{ authorized_key_paths }}"
   roles:
     - role: cchurch.admin-users
-      admin_users:
-        - username: admin
-          fullname: The Admin
-          pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test'  # noqa 204
-        - username: admin2
-          fullname: The Other Admin
-          pubkey:
-            - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test'  # noqa 204
-        - username: cchurch
-          fullname: Chris Church
-          pubkey: https://github.com/cchurch.keys
+      vars:
+        admin_users:
+          - username: admin
+            fullname: The Admin
+            pubkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test"  # noqa 204
+          - username: admin2
+            fullname: The Other Admin
+            pubkey:
+              - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYjoIq+3MIQSM8APM6LVprB3ORWDQpLsDY2z+c5HrXtdu+dRnBK1VMyBs38AAFZKdIoubVLTWXDnXkstxqrTgOPYnVYNlrjpBmigmtPY/RqeQbSpazN30nrX2CymiK5kFzQaXQTozC0zd4VUjZiGmLI2U4iPVf1dQPbzc+MZxU/KD4Y7vtGMC8cfJ7fJEOuyewiIkiRt2F0GEGUZE2XwtCw5NQ3ET2UDFxty5P5Rk700YjhHWxdew6ze8hNT5zk44CHEWo2lOcMSJs1GRxRDhrXLdJAwRNUBSOKSH/DSG0brlYSo7HQnn+xrh3HjUQsQxctL5PtHLpIl6YZHLd2z2h admin@test"  # noqa 204
+          - username: cchurch
+            fullname: Chris Church
+            pubkey: https://github.com/cchurch.keys
   post_tasks:
     - name: check that authorized keys exists after role
       stat:
-        path: '{{ item }}'
+        path: "{{ item }}"
       register: stat_authorized_keys
       failed_when: not stat_authorized_keys.stat.exists
-      with_items: '{{ authorized_key_paths }}'
+      with_items: "{{ authorized_key_paths }}"
 
 - name: try to connect with admin user and key
   hosts: containers
   tasks:
     - name: set new ssh user and specify private key
       set_fact:
-        previous_user: '{{ ansible_user|default(root) }}'
+        previous_user: "{{ ansible_user | default(root) }}"
         ansible_user: admin
-        ansible_ssh_private_key_file: '{{ playbook_dir }}/admin.key'
+        ansible_ssh_private_key_file: "{{ playbook_dir }}/admin.key"
     # Doesn't *really* check since we're using docker connection instead of ssh.
     - name: check that current user is really the new ssh user
       command: whoami
       register: whoami_result
       changed_when: false
-      failed_when: whoami_result.stdout != "admin"
+      failed_when: whoami_result.stdout != 'admin'
     - name: restore previous user
       set_fact:
-        ansible_user: '{{ previous_user }}'
+        ansible_user: "{{ previous_user }}"
 
 - name: test role with other options
   hosts: containers
   roles:
     - role: cchurch.admin-users
-      admin_users_to_remove:
-        - cchurch
-      admin_users_sudo_nopasswd: false
+      vars:
+        admin_users_to_remove:
+          - cchurch
+        admin_users_sudo_nopasswd: false
   post_tasks:
     - name: check that sudo_nopasswd does not exist after role
       stat:

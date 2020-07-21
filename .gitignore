@@ -1,6 +1,7 @@
 *.pyc
 *.pyo
 *.retry
+__pycache__
 .tox
 tests/admin.key
 tests/roles/chrismeyersfsu.provision_docker

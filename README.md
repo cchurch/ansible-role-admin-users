@@ -6,7 +6,7 @@ Admin Users
 
 Manage admin users, authorized keys and sudo access.
 
-Support for Ansible versions < 2.4 was dropped as of version 0.8.0.
+Support for Ansible versions < 2.8 was dropped as of version 0.9.0.
 
 Requirements
 ------------

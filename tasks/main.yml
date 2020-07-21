@@ -1,81 +1,81 @@
 ---
 
 - name: include os specific variables
-  include_vars: '{{ ansible_os_family }}.yml'
+  include_vars: "{{ ansible_os_family }}.yml"
 
 - name: ensure sudo package is installed
   action:
-    module: '{{ ansible_pkg_mgr }}'
-    name: '{{ admin_users_sudo_package }}'
+    module: "{{ ansible_pkg_mgr }}"
+    name: "{{ admin_users_sudo_package }}"
     state: present
   when: admin_users_sudo_package is defined
 
 - name: create admin group
   group:
-    name: '{{ admin_users_sudo_group }}'
+    name: "{{ admin_users_sudo_group }}"
     system: true
     state: present
 
 - name: create admin user groups
   group:
-    name: '{{ item.username|mandatory }}'
+    name: "{{ item.username | mandatory }}"
     state: present
-  with_items: '{{ admin_users|admin_users_unique(attribute="username")|list }}'
+  with_items: "{{ admin_users | admin_users_unique(attribute='username') | list }}"
   when: admin_user_groups
 
 - name: create admin users
   user:
-    name: '{{ item.username|mandatory }}'
-    comment: '{{ item.fullname|default(omit) }}'
-    group: '{{ admin_user_groups|ternary(item.username,omit) }}'
-    groups: '{{ admin_users_sudo_group }}'
+    name: "{{ item.username | mandatory }}"
+    comment: "{{ item.fullname | default(omit) }}"
+    group: "{{ admin_user_groups | ternary(item.username, omit) }}"
+    groups: "{{ admin_users_sudo_group }}"
     append: yes
-    shell: '{{ item.shell|default(admin_users_default_shell) }}'
-  with_items: '{{ admin_users|admin_users_unique(attribute="username")|list }}'
+    shell: "{{ item.shell | default(admin_users_default_shell) }}"
+  with_items: "{{ admin_users | admin_users_unique(attribute='username') | list }}"
 
 - name: remove admin users
   user:
-    name: '{{ item }}'
+    name: "{{ item }}"
     state: absent
-  with_items: '{{ admin_users_to_remove|admin_users_unique|list }}'
+  with_items: "{{ admin_users_to_remove | admin_users_unique | list }}"
 
 - name: remove admin user groups
   group:
-    name: '{{ item }}'
+    name: "{{ item }}"
     state: absent
-  with_items: '{{ admin_users_to_remove|admin_users_unique|list }}'
+  with_items: "{{ admin_users_to_remove | admin_users_unique | list }}"
   when: admin_user_groups
 
 - name: update authorized keys for admin users
   authorized_key:
-    user: '{{ item.username }}'
-    key: '{{ item.pubkey }}'
-    key_options: '{{ item.pubkey_options|default(omit) }}'
-    exclusive: '{{ item.exclusive|default(omit) }}'
-  with_items: '{{ admin_users|selectattr("pubkey", "string")|list }}'
+    user: "{{ item.username }}"
+    key: "{{ item.pubkey }}"
+    key_options: "{{ item.pubkey_options | default(omit) }}"
+    exclusive: "{{ item.exclusive | default(omit) }}"
+  with_items: "{{ admin_users | selectattr('pubkey', 'string') | list }}"
 
 - name: update multiple authorized keys for admin users
   authorized_key:
-    user: '{{ item.0.username }}'
-    key: '{{ item.1 }}'
-    key_options: '{{ item.0.pubkey_options|default(omit) }}'
-    exclusive: '{{ item.0.exclusive|default(omit) }}'
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+    key_options: "{{ item.0.pubkey_options | default(omit) }}"
+    exclusive: "{{ item.0.exclusive | default(omit) }}"
   with_subelements:
-    - '{{ admin_users|rejectattr("pubkey", "string")|list }}'
-    - 'pubkey'
+    - "{{ admin_users | rejectattr('pubkey', 'string') | list }}"
+    - "pubkey"
     - skip_missing: true
 
-- name: 'enable sudo with no password for {{ admin_users_sudo_group }} group'
+- name: "enable sudo with no password for {{ admin_users_sudo_group }} group"
   template:
     src: sudo_nopasswd.j2
-    dest: '{{ admin_users_sudoers_d_path|default("/etc/sudoers.d") }}/sudo_nopasswd'
+    dest: "{{ admin_users_sudoers_d_path | default('/etc/sudoers.d') }}/sudo_nopasswd"
     mode: 0440
     owner: root
-    group: '{{ admin_users_root_group|default("root") }}'
-  when: admin_users_sudo_nopasswd|bool
+    group: "{{ admin_users_root_group | default('root') }}"
+  when: admin_users_sudo_nopasswd | bool
 
 - name: disable sudo with no password
   file:
-    path: '{{ admin_users_sudoers_d_path|default("/etc/sudoers.d") }}/sudo_nopasswd'
+    path: "{{ admin_users_sudoers_d_path | default('/etc/sudoers.d') }}/sudo_nopasswd"
     state: absent
-  when: not admin_users_sudo_nopasswd|bool
+  when: not admin_users_sudo_nopasswd | bool

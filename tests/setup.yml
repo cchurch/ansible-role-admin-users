@@ -6,7 +6,7 @@
   roles:
     - role: chrismeyersfsu.provision_docker
       provision_docker_inventory_group:
-        - '{{ inventory_hostname }}'
+        - "{{ inventory_hostname }}"
       delegate_to: localhost
 
 - name: check and install python on ubuntu/debian containers
