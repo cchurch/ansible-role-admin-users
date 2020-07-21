@@ -15,6 +15,7 @@ admin_users_debian9 image="debian:stretch"
 admin_users_debian10 image="debian:buster"
 admin_users_ubuntu16 image="ubuntu:xenial"
 admin_users_ubuntu18 image="ubuntu:bionic"
+admin_users_ubuntu20 image="ubuntu:focal"
 
 [containers:vars]
 ansible_connection=docker
@@ -59,9 +60,16 @@ admin_users_debian10
 [ubuntu:children]
 ubuntu16
 ubuntu18
+ubuntu20
 
 [ubuntu16]
 admin_users_ubuntu16
 
 [ubuntu18]
 admin_users_ubuntu18
+
+[ubuntu20]
+admin_users_ubuntu20
+
+[ubuntu20:vars]
+python_minimal_package=python3-minimal
